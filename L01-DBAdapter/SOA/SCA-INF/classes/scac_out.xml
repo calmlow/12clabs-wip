@@ -1,2 +1,23 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Faults/>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc>/ns:composite/ns:service[@name='getStatusForCreditCard']</loc>
+      <line>18</line>
+      <col>94</col>
+      <file>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</file>
+      <name>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</name>
+      <fix/>
+      <msg>Service "getStatusForCreditCard" does not exist as wire source</msg>
+   </Fault>
+   <Fault>
+      <severity>error</severity>
+      <loc>/ns:composite/ns:reference[@name='dbReference']</loc>
+      <line>26</line>
+      <col>74</col>
+      <file>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</file>
+      <name>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</name>
+      <fix/>
+      <msg>Reference dbReference does not exist as wire target</msg>
+   </Fault>
+</Faults>

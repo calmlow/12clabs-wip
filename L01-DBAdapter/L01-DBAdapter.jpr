@@ -70,6 +70,8 @@
       <list n="technologyScope">
          <string v="Maven"/>
          <string v="SOA"/>
+         <string v="WSDL"/>
+         <string v="WSPolicy"/>
          <string v="XML"/>
       </list>
    </hash>
@@ -278,4 +280,5 @@
          </list>
       </hash>
    </hash>
+   <value n="SOA_WSDL_FOLDER_NAME" v="WSDLs/"/>
 </jpr:project>
