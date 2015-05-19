@@ -9,5 +9,6 @@
         <!-- Add project modules -->
     	<module>Project1</module>
     	<module>L01-DBAdapter</module>
+    	<module>lab1</module>
     </modules>
 </project>

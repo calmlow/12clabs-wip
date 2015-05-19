@@ -4,3 +4,4 @@ src
 *.jws
 Project1
 **/*/SCA-INF/*
+**/SOA/SCA-INF*/
