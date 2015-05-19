@@ -12,12 +12,12 @@
    </Fault>
    <Fault>
       <severity>error</severity>
-      <loc>/ns:composite/ns:reference[@name='dbReference']</loc>
+      <loc>/ns:composite/ns:reference[@name='QueryCreditStatus']</loc>
       <line>26</line>
-      <col>74</col>
+      <col>86</col>
       <file>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</file>
       <name>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</name>
       <fix/>
-      <msg>Reference dbReference does not exist as wire target</msg>
+      <msg>Reference QueryCreditStatus does not exist as wire target</msg>
    </Fault>
 </Faults>

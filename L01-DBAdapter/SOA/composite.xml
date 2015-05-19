@@ -11,10 +11,10 @@
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/"
            xmlns:sca-ext="http://xmlns.oracle.com/sca/1.0-ext">
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/dbReference"
-          location="WSDLs/dbReference.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/Labs12cApp/L01-DBAdapter/getStatusForCreditCard"
           location="WSDLs/getStatusForCreditCard.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/QueryCreditStatus"
+          location="WSDLs/QueryCreditStatus.wsdl" importType="wsdl"/>
   <service name="getStatusForCreditCard" ui:wsdlLocation="WSDLs/getStatusForCreditCard.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/Labs12cApp/L01-DBAdapter/getStatusForCreditCard#wsdl.interface(execute_ptt)"/>
     <binding.ws port="http://oracle.com/sca/soapservice/Labs12cApp/L01-DBAdapter/getStatusForCreditCard#wsdl.endpoint(getStatusForCreditCard/execute_pt)">
@@ -23,9 +23,9 @@
   </service>
   <property name="productVersion" type="xs:string" many="false">12.1.3.0.0</property>
   <property name="compositeID" type="xs:string" many="false">b8427f5e-6571-4b30-a8fa-d7dbf2ffcb0c</property>
-  <reference name="dbReference" ui:wsdlLocation="WSDLs/dbReference.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/dbReference#wsdl.interface(dbReference_ptt)"/>
-    <binding.jca config="Adapters/dbReference_db.jca"/>
+  <reference name="QueryCreditStatus" ui:wsdlLocation="WSDLs/QueryCreditStatus.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/QueryCreditStatus#wsdl.interface(QueryCreditStatus_ptt)"/>
+    <binding.jca config="Adapters/QueryCreditStatus_db.jca"/>
     <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
     <property name="jca.retry.interval" type="xs:int" many="false" override="may">1</property>
     <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
