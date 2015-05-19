@@ -25,7 +25,14 @@
   <property name="compositeID" type="xs:string" many="false">b8427f5e-6571-4b30-a8fa-d7dbf2ffcb0c</property>
   <component name="RouteRequest">
     <implementation.mediator src="Mediators/RouteRequest.mplan"/>
-    <componentType/>
+    <componentType>
+      <service name="RouteRequest" ui:wsdlLocation="WSDLs/getStatusForCreditCard.wsdl">
+        <interface.wsdl interface="http://oracle.com/sca/soapservice/Labs12cApp/L01-DBAdapter/getStatusForCreditCard#wsdl.interface(execute_ptt)"/>
+      </service>
+      <reference name="QueryCreditStatus" ui:wsdlLocation="WSDLs/QueryCreditStatus.wsdl">
+        <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/QueryCreditStatus#wsdl.interface(QueryCreditStatus_ptt)"/>
+      </reference>
+    </componentType>
   </component>
   <reference name="QueryCreditStatus" ui:wsdlLocation="WSDLs/QueryCreditStatus.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/Labs12cApp/L01-DBAdapter/QueryCreditStatus#wsdl.interface(QueryCreditStatus_ptt)"/>
@@ -35,4 +42,12 @@
     <property name="jca.retry.backoff" type="xs:int" many="false" override="may">2</property>
     <property name="jca.retry.maxInterval" type="xs:int" many="false" override="may">120</property>
   </reference>
+  <wire>
+    <source.uri>getStatusForCreditCard</source.uri>
+    <target.uri>RouteRequest/RouteRequest</target.uri>
+  </wire>
+  <wire>
+    <source.uri>RouteRequest/QueryCreditStatus</source.uri>
+    <target.uri>QueryCreditStatus</target.uri>
+  </wire>
 </composite>
