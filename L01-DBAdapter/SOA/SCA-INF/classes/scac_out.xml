@@ -13,7 +13,7 @@
    <Fault>
       <severity>error</severity>
       <loc>/ns:composite/ns:reference[@name='QueryCreditStatus']</loc>
-      <line>26</line>
+      <line>30</line>
       <col>86</col>
       <file>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</file>
       <name>C:\a\dev\Labs12cApp\L01-DBAdapter\SOA\composite.xml</name>
