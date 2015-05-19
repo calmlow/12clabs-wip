@@ -21,11 +21,19 @@
 ### Hints
 
 1.1 Modify the directories to where you want the source files to be saved.
-
+1.2 Do not create an application name with spaces
+1.3 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
 
 ### Questions
 
-1.1 ???
+1.1 What is the minimum version of the JDK for JDeveloper to run?
+    Answer: Version must be later than or equal to 1.7.0_15.
+1.2 What is the maximum number of characters a Composite or component can have?
+    Answer: Names cannot exceed 500 characters.
+1.3 Can you re-arrange the file structure of the files created as long as they are under the directory SOA for composites?
+    Answer: Yes
+1.4 What does the composite.xml file describe?
+    Answer: This file describes the entire composite assembly of services, service components, and references. There is one composite.xml file for each SOA project.
 
 
 ## 2.0 Create a Database Connection
@@ -36,8 +44,7 @@
 | Name                   | Value             |
 | ---------------------- |:-----------------:| 
 | *DB Connection name*   | MYSQLdemodb       |
-| *JNDI Name*            | eis/DB/oracle2SRC |
-
+| *JNDI Name*            | eis/DB/Mydemodb   |
 
 
 ## 2.0 Adding the Database Adapter
