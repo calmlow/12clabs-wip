@@ -1,0 +1,14 @@
+<adapter-config name="QueryCreditStatus" adapter="db" wsdlLocation="../WSDLs/QueryCreditStatus.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="MYSQLdemodb" location="eis/DB/MYSQLdemodb"/>
+  <endpoint-interaction portType="QueryCreditStatus_ptt" operation="QueryCreditStatusSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="QueryCreditStatus.Creditcardinfo"/>
+      <property name="QueryName" value="QueryCreditStatusSelect"/>
+      <property name="MappingsMetaDataURL" value="QueryCreditStatus-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

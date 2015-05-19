@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/QueryCreditStatus" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/QueryCreditStatus" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CreditcardinfoCollection" type="CreditcardinfoCollection"/>
+   <xs:complexType name="CreditcardinfoCollection">
+      <xs:sequence>
+         <xs:element name="Creditcardinfo" type="Creditcardinfo" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Creditcardinfo">
+      <xs:sequence>
+         <xs:element name="ccnumber" type="string40"/>
+         <xs:element name="status" type="string40" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="QueryCreditStatusSelect_ccnrInputParameters" type="QueryCreditStatusSelect_ccnr"/>
+   <xs:complexType name="QueryCreditStatusSelect_ccnr">
+      <xs:sequence>
+         <xs:element name="ccnr" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string40">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="40"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>
