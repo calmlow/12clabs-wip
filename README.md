@@ -1,30 +1,34 @@
-# LAB 01 - DB Adapter
+# LAB 02 - DB Adapter
 
-## 1.0 Create a New Application
+> In this lab we will cover 4 topics. DBAdapters, Correlations, SubProcesses and Faults (Extra)
 
-### Instructions
+## 1.0 Create a New Application and Project
+Create the application and project base. Also add the given wsdl+schema onto composite with a BPEL component (defined interface later option)
 
-* 1.1 Open JDeveloper and create a new application
-* 1.2 From the Categories tree in File -> New, click on General to open the Wizard
+### 1.1 Details
 
-| Name                  | Value             |
-| --------------------- |:-----------------:|
-| Application Name      | Labs12cApp        |
-| Project Name          | validationForCC   |
+Name                  | Value           
+--------------------- |----------------
+Application Name      | SoaLabApp02
+Package Prefix        | -blank-
+Project Name          | PurchaseToPay
+Start from:           | _Empty Composite_
+Service Name          | DoPayment
+BPEL Name             | ProcessPayment
 
-* 1.3 Select generic application from the Items field.
-* 1.4 Give the application a name
-* 1.5 Give the Project a name; "validationForCC"
-* 1.6 Select SOA in the Project Technologies tab
-* 1.7 In the next step select "Empty Composite"
+### 1.2 Instructions
 
-### Hints
+* 1.0 Create a new application and project
+* 1.1 Add the Service, locate the given WSDL+schema, import to project if prompted
+* 1.2 Add the BPEL
+
+### 1.3 Hints
 
 * 1.1 Modify the directories to where you want the source files to be saved.
-* 1.2 Do not create an application name with spaces
-* 1.3 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
+* 1.2 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
 
-### Questions
+
+### 1.4 Questions
 
 * 1.1 What is the minimum version of the JDK for JDeveloper to run?
       _Answer: Version must be later than or equal to 1.7.0_15_
@@ -35,139 +39,185 @@
 * 1.4 What does the composite.xml file describe?
     _Answer: This file describes the entire composite assembly of services, service components, and references. There is one composite.xml file for each SOA project._
 
+## 2 Add Receive, Assign and Reply activities
+Make the flow work by making it retrieve you request and assign the reply with a message
 
-## 2.0 Create a Database Connection
+### 2.1 Details
 
-### Instructions
+Name                  | Value           
+--------------------- |----------------
+Receive Operation     | RegisterAmount
+Input variable        | Receive1_RegisterAmount_InputVariable (default)
+Output variable       | Reply1_RegisterAmount_OutputVariable (default)
+ResponseCode          | 1
+ResponseMessage       | concat('Amount ',$Receive1_RegisterAmount_InputVariable.part1/ns2:Amount  ,' registered.)
 
+### 2.2 Instructions
 
-| Name                   | Value             |
-| ---------------------- |:-----------------:| 
-| *DB Connection name*   | MYSQLdemodb       |
-| *JNDI Name*            | eis/DB/Mydemodb   |
+* 2.0 Add a receive activity
 
+* 2.1 Add an assign activity and add the outgoing message to ResponseMessage Field
 
-## 2.0 Adding the Database Adapter
+* 2.2 Add a Reply activity
 
-
-### Instructions
-
-| Name                                    | Value          |
-| --------------------------------------- |:--------------:| 
-| *DB Connection name*                    | MYSQLdemodb    |
-| *primary key*                           | CCNUMBER       |
-| *Table to query*                        | CREDITCARDINFO |
-| *Field to select*                       | STATUS         |
-| *parameter name (in select statement)*  | ccnr           |
+* 2.3 Build (Alt-F9) and Deploy your composite
 
 
-* 2.1 Drag and drop a Database Adapter onto the External References swim lane.  If you don’t have the Component Palette open, from the menu select View > Component Palette.  If the Component Palette is not showing the SOA components, select SOA from the drop down list.
+## 3 Setup correlations and add Pick Activity
 
-* 2.2 This database adapter call will return a result of valid or invalid for a given credit card from the database.  A wizard takes you through the steps of configuring the database adapter. 
-The title bar of the wizard dialog shows the step number. Click Next on step 1.
+### 3.1 Details
 
+Name                          | Value         
+----------------------------- |--------------
+Correlation Set Name          | Correlation_Set1
+Correlation Property          | MyCorrProperty
+Initiate                      | Yes
+OnMessage operation           | EnterCardNumber
 
-* 2.3 Give the name DBAdapter the Reference Name: *QueryCreditStatus*
+### 3.2 Instructions
 
-* 2.4 Choose your DB connection from before. (hint: double-click to select it) 
+* 3.0 Double click the Receive Activity and add a new Correlation set
+* 3.1 Make Property Aliases to all the Request and Response Messages for both operations
+* 3.2 Add a pick activity
 
-* 2.6 Follow the database adapter wizard, select the table CREDITCARDINFO.
+### 3.3 Questions
 
-* 2.7 Step 6 of the wizard lets you override or define the primary key for your table.  In this case, no primary key is defined in the database, so you’ll need to specify it. Check CCNUMBER and leave the rest unchecked.
+* 3.1 What is the Property Alias for?
+* 3.2 To what file is the Correlation Property added to?
+* 3.3 To what file does the correlation wizard add the Property Alias information?
 
-* 2.9 Add a new parameter to the db adapter wizard and call it ccnr
+### 3.4 Hints
 
-* 2.10 Build the query with help of the new parameter and make it only select *ccnumber* that equals the *parameter*
+* 3.0 Below is how a property alias linking to a field on a message looks like
 
-### Hints
+```XML
+<vprop:propertyAlias propertyName="corr:MyCorrProperty" part="part1" messageType="tns:RegisterAmountRequestMessage">
+    <vprop:query>sch:CorrelationID</vprop:query>
+</vprop:propertyAlias>
+```
 
-* 2.1 Uncheck all fields of the table except status
+* 3.1 The new correlation wizard doesn't work very good..
 
-* 2.2 Use the back button if you missed something
+    
+## 4 Adding the Database Adapter + Point to the new datasource
 
-### Questions
+### 4.1 Details
 
-* 2.1 Does the DB Adapter support transactional behaviour?
-* 2.2 What kind of MEP (Message Exchange Pattern) have you implemented by this exercise?
-* 2.3 What's the name of the column you placed the DB Adapter?
-* 2.5 What's the name of the swim lane where the Mediator component lives? 
+Name                                 | Value         
+------------------------------------ |--------------
+DB Connection name                   | MySQLExt      
+Database Name                        | demodb                   
+Hostname                             | _see whiteboard_   
+Port                                 | 3306                            
+Database User Name                   | demodb                    
+Password                             | _see whiteboard_                  
+Custom JDBC URL (alternative)        | jdbc:mysql://hostname:3306/demodb
+Adapter Reference Name               | QuerySaldo
+primary key                          | CARDNUMBER    
+Table to query                       | BANKACCOUNTS 
+Field to select                      | BALANCE       
+parameter name (in select statement) | cardnr     
 
+### 4.2 Instructions
 
-## 3.0 Adding the Mediator Component
+* 4.0 Drag and drop a Database Adapter onto the External References swim lane.  If you don’t have the Component Palette open, from the menu select View > Component Palette.
 
-| Name                                    | Value          |
-| --------------------------------------- |:--------------:| 
-| *Mediator name*                         | RouteRequest    |
+* 4.1 This database adapter call will return a result of valid or invalid for a given credit card from the database.  A wizard takes you through the steps of configuring the database adapter. 
 
+* 4.1.1 Give the Reference Name *QuerySaldo* to the DBAdapter
 
-### Instructions
+* 4.1.2 Follow the database adapter wizard, select the table BANKACCOUNTS.
 
-* 3.1 Drag a Mediator component onto the composite diagram into the Components swim lane.
+* 4.1.3 Step 6 of the wizard lets you override or define the primary key for your table.  In this case, no primary key is defined in the database, so you’ll need to specify it.
+Check BALANCE and leave the rest unchecked.
 
-* 3.2 Give it the name "RouteRequest" and choose Template: _Define Interface Later_
+* 4.1.4 Add a new *parameter* to the db adapter wizard and call it *cardnr*
 
-* 3.3 Create a Web Service interface to expose this service using SOAP bindings.  Drag a Web Service adapter to the Exposed Services (left-side) swim lane.
+* 4.1.5 Build the query with help of the new parameter and make it only select *CARDNUMBER* that equals the parameter
 
-* 3.4 Name the service "getStatusByCC" 
+* 4.2 
 
-* 3.5 Generate WSDL for this service from that same screen.
+### 4.3 Hints
 
-* 3.6 Make sure to point to the pre-created schema .xsd file, creditcheck.xsd, in the wsdl dialog.
+* 4.1 Uncheck all fields of that is not of interest
 
-* 3.7 As type for the requesting element choose "creditcardStatusRequest"
+* 4.2 Choose your DB connection from before. (hint: double-click to select it) 
 
+* 4.3 Your select statement should look like _SELECT CARDNUMBER, BALANCE FROM BANKACCOUNTS WHERE (CARDNUMBER = #cardnr)_
 
-### Questions
+### 4.4 Questions
 
-* 3.1 What file was created in the folder *./SOA/Mediators/* when you dragged in the Mediator component?
-* 3.2 What are the two core responsibilities of Mediator?
-      Answer: Routing and Transformation
-* 3.3 What is the term for deciding where a Mediator sends the message, how it sends the message, and what changes should be made to the message structure before sending it to the target service?
-	  Answer: Routing Rules
-* 3.4 What are the characteristics of a Static Routing Rule?
-      Answer: Routing Rules
-* 3.5 What are the characteristics of a Dynamic Routing Rule?
-      Answer: Dynamic rules let you externalize the routing logic to an Oracle Rules Dictionary, which in turn enables dynamic modification of the routing logic.
-
-
-## 4.0 Create the Web Service
-
-| Name                                    | Value                     |
-| --------------------------------------- |:-------------------------:| 
-| *Web Service name*                      | getStatusForCreditCard    |
-| *Prepared schema file*                  | creditcheck.xsd           |
-
-
-### Instructions
-
-* 4.1 Create a web service on the left-hand side and generate a WSDL from schema 
-
-* 4.2 Locate the schema given for this lab and use the default values for port-type and such 
-
-* 4.3 Make sure you put the requestMessage, replyMessage and the faultMessage to the corresponding elements in the schema
-
-### Hints
-
-* 4.1 You can edit the WSDL file in source view
-
-### Questions
-
-* 4.1 What is the name of the WSDL file being created on disk.
-* 4.2 What is a difference from 11g that you notice about what files created? 
-
-## 5.0 Wire it up and Make Transformations in the Mediator Component
-
-### Instructions
-
-* 5.1 Now the components can be connected or "wired" together. Wire the inbound web service binding to the Mediator component.
-
-* 5.1 Edit the Mediator component.  The RouteRequest.mplan window displays.
-
-* 5.2 Create a new mapper file. Choose XQuery and accept the default name.
-
-* 5.3 Drag the corresponding wires with their matching names to one another.
-
-## 6.0 Deploy your application
+* 4.1 Does the DB Adapter support transactional behaviour?
+* 4.2 What's the name of the swim lane where you placed the DB Adapter?
+* 4.3 What's the name of the swim lane where the Mediator/BPEL component lives? 
 
 
+## 5.0 Add a Subprocess
+
+### 5.1 Details
+
+Name                            | Value           
+--------------------------------|---------------------
+Subprocess component name       | ValidateCashRegisterID
+In variable name                | In
+Out variable name               | Out
+If-condition                    | string-length($In) = 7)
+BPEL subprocess response var    | ValidateCashRegisterIDResponse
+Pass return var as              | Uncheck copy of
+
+### 5.2 Instructions
+
+* 5.0 Add a Subprocess in the Composite Editor.
+
+* 5.1 Add 2 variables and add a IF-activity with a condition
+
+* 5.2 From the BPEL add a call activity and call the Subprocess
+
+* 5.2.1 Setup the call with the CashRegisterID as input and 
+
+### 5.3 Questions
+
+* 5.3.1 Does subprocesses exist in 11g?
+* 5.3.2 What are good scenarios to use subprocesses?
+* 5.3.3 What is implied when you not check Copy of checkbox?
+
+
+## 6.0 (Extra) WriteAccountStatement - Add the FlowN Activity and a DB Write Adapter
+
+### 6.1 Details
+
+Name                              | Value                    
+--------------------------------- |--------------------------
+DB Write Adapter name             | *WriteAccountStatement*   
+DB Connection                     | *MySQLExt*             
+Operation Type                    | *Insert only*           
+Import Table                      | ACCOUNTSTATEMENTS     
+Attribute Filtering               | *deselect tstamp*    
+Invoke Name of db writer in BPEL  | InvokeDBWriter     
+
+### 6.2 Instructions
+
+* 6.1 Drag a Flow Activity to the OnMessage Area
+
+* 6.2 In the composite view, Construct DB Write Adapter in wizard
+
+* 6.3 Wire the Write DB Adapter to the BPEL.
+
+* 6.4 In BPEL Invoke the DB Writer from the second sequence in the FlowN activity.
+
+* 6.5 Assign appropriate values to the DB Write call variable. Include the amount from first call & the card number.
+
+* 6.0 Assign the necesary response messages
+
+* 6.1 Use concat to assign some nice response messages along with the variables retrieved from output of db call.
+
+* 6.2 
+
+## 7.0 (Extra) Add fault handling
+
+### 7.1 Instructions
+
+* 7.0 Add a catchAll activity to catch a negative response from the subprocess
+
+* 7.1 Deploy your app
 
