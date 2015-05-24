@@ -14,19 +14,20 @@ Package Prefix        | _leave blank_
 Project Name          | PurchaseToPay
 Start from:           | _Empty Composite_
 Service Name          | DoPayment
+WSDL File             | [PaymentTerminal.wsdl](https://github.com/calmlow/12clabs-wip/tree/master/collateral/PaymentTerminal.wsdl)
+Schema File           | [PaymentTerminalSchema.xsd](https://github.com/calmlow/12clabs-wip/tree/master/collateral/PaymentTerminalSchema.xsd)
 BPEL Name             | ProcessPayment
 
 ### 1.2 Instructions
 
 * 1.0 Create a new application and project
 * 1.1 Add the Service, locate the given WSDL+schema, import to project if prompted
-* 1.2 Add the BPEL
+* 1.2 Add the BPEL (define interface later option)
 
 ### 1.3 Hints
 
-* 1.1 Modify the directories to where you want the source files to be saved.
-* 1.2 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
-* 1.3 [Hints](https://docs.oracle.com/middleware/1213/soasuite/develop-soa/soa-standards-architecture.htm#SOASE84935) for below questions: 
+* 1.1 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
+* 1.2 [Hints](https://docs.oracle.com/middleware/1213/soasuite/develop-soa/soa-standards-architecture.htm#SOASE84935) for below questions.
 
 ### 1.4 Questions
 
