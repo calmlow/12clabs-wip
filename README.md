@@ -10,7 +10,7 @@ Create the application and project base. Also add the given wsdl+schema onto com
 Name                  | Value           
 --------------------- |----------------
 Application Name      | SoaLabApp02
-Package Prefix        | -blank-
+Package Prefix        | _leave blank_
 Project Name          | PurchaseToPay
 Start from:           | _Empty Composite_
 Service Name          | DoPayment
@@ -26,18 +26,14 @@ BPEL Name             | ProcessPayment
 
 * 1.1 Modify the directories to where you want the source files to be saved.
 * 1.2 Do not create applications and projects in directory paths that have spaces (for example, c:\Program Files).
-
+* 1.3 [Hints](https://docs.oracle.com/middleware/1213/soasuite/develop-soa/soa-standards-architecture.htm#SOASE84935) for below questions: 
 
 ### 1.4 Questions
 
 * 1.1 What is the minimum version of the JDK for JDeveloper to run?
-      _Answer: Version must be later than or equal to 1.7.0_15_
 * 1.2 What is the maximum number of characters a Composite or component can have?
-      _Answer: Names cannot exceed 500 characters_
 * 1.3 Can you re-arrange the file structure of the files created as long as they are under the directory SOA for composites?
-    _Answer: Yes_
 * 1.4 What does the composite.xml file describe?
-    _Answer: This file describes the entire composite assembly of services, service components, and references. There is one composite.xml file for each SOA project._
 
 ## 2 Add Receive, Assign and Reply activities
 Make the flow work by making it retrieve you request and assign the reply with a message
@@ -147,9 +143,9 @@ Check BALANCE and leave the rest unchecked.
 
 ### 4.4 Questions
 
-* 4.1 Does the DB Adapter support transactional behaviour?
-* 4.2 What's the name of the swim lane where you placed the DB Adapter?
-* 4.3 What's the name of the swim lane where the Mediator/BPEL component lives? 
+* 4.1 What's the name of the swim lane where you placed the DB Adapter?
+* 4.2 What's the name of the swim lane where the Mediator/BPEL component lives? 
+* 4.3 Does the database adapter require a primary key for when interacting with tables?
 
 
 ## 5.0 Add a Subprocess
@@ -163,7 +159,9 @@ In variable name                | In
 Out variable name               | Out
 If-condition                    | string-length($In) = 7)
 BPEL subprocess response var    | ValidateCashRegisterIDResponse
-Pass return var as              | Uncheck copy of
+Pass Out variable as...         | Uncheck "Copy By Value"
+Call Activity name              | Call1 (default)
+Variable for storing response   | SubprocessResponseValue
 
 ### 5.2 Instructions
 
@@ -173,14 +171,13 @@ Pass return var as              | Uncheck copy of
 
 * 5.2 From the BPEL add a call activity and call the Subprocess
 
-* 5.2.1 Setup the call with the CashRegisterID as input and 
+* 5.2.1 Setup the call with the CashRegisterID as input and *SubprocessResponseValue* for storing the response
 
 ### 5.3 Questions
 
 * 5.3.1 Does subprocesses exist in 11g?
 * 5.3.2 What are good scenarios to use subprocesses?
-* 5.3.3 What is implied when you not check Copy of checkbox?
-
+* 5.3.3 What is implied when you _not_ check "Copy By Value" checkbox?
 
 ## 6.0 (Extra) WriteAccountStatement - Add the FlowN Activity and a DB Write Adapter
 
